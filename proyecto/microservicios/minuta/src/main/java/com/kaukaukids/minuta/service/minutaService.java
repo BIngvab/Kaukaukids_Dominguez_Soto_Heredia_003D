@@ -15,20 +15,22 @@ public class minutaService {
     private minutaRepository repository;
 
     public Map<String, Object> calcularYGuardarMinuta(minutaModel minuta) {
-    
+        
+        // 1. Guardar en la base de datos temporal
         minutaModel minutaGuardada = repository.save(minuta);
 
-
+        // 2. Factores de consumo unitarios
         double fAdultoBebida = 0.5;  
         double fNinoBebida = 0.3;    
 
         double fAdultoSnack = 4.0;   
         double fNinoSnack = 6.0;     
 
+        // 3. Cálculo matemático con los getters limpios de Lombok
+        double totalBebidas = (minutaGuardada.getAdults() * fAdultoBebida) + (minutaGuardada.getChildren() * fNinoBebida); 
+        double totalSnacks = (minutaGuardada.getAdults() * fAdultoSnack) + (minutaGuardada.getChildren() * fNinoSnack); 
 
-        double totalBebidas = (minutaGuardada.getnAdultos() * fAdultoBebida) + (minutaGuardada.getnNinos() * fNinoBebida); 
-        double totalSnacks = (minutaGuardada.getnAdultos() * fAdultoSnack) + (minutaGuardada.getnNinos() * fNinoSnack); 
-
+        // 4. Estructurar respuesta para Postman
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("idRegistro", minutaGuardada.getId());
         respuesta.put("tipoMinuta", minutaGuardada.getTipoMinuta());
