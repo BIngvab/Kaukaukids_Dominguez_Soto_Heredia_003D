@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,12 @@ public class minutaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "tipo_minuta")
     private String tipoMinuta;
-    private int nAdultos;
-    private int nNinos;
+
+    @Column(name = "n_adultos")
+    private int adults;
+
+    @Column(name = "n_ninos")
+    private int children;
 }
